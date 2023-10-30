@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aim.questionnaire.dao.QuestionnaireShareMapper">
+    <resultMap id="BaseResultMap" type="com.aim.questionnaire.entity.QuestionnaireShare">
+        <id column="questionnaire_id" jdbcType="VARCHAR" property="questionnaireId"/>
+        <result column="share_link" jdbcType="VARCHAR" property="shareLink"/>
+        <result column="share_by" jdbcType="VARCHAR" property="shareBy"/>
+        <result column="share_tim" jdbcType="TIMESTAMP" property="shareTim"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        questionnaire_id, share_link, share_by, share_tim,user_id
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from questionnaire_share
+        where questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+    </select>
+    <select id="getQuestionnaireShare" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List">
+        </include>
+        from questionnaire_share where questionnaire_id = #{questionnaireId,jdbcType=VARCHAR} limit 1
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from questionnaire_share
+        where questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.aim.questionnaire.entity.QuestionnaireShare">
+        insert into questionnaire_share (questionnaire_id, share_link, share_by,
+        share_tim,user_id)
+        values (#{questionnaireId,jdbcType=VARCHAR}, #{shareLink,jdbcType=VARCHAR}, #{shareBy,jdbcType=VARCHAR},
+        #{shareTim,jdbcType=TIMESTAMP},#{userId,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.aim.questionnaire.entity.QuestionnaireShare">
+        insert into questionnaire_share
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="questionnaireId != null">
+                questionnaire_id,
+            </if>
+            <if test="shareLink != null">
+                share_link,
+            </if>
+            <if test="shareBy != null">
+                share_by,
+            </if>
+            <if test="shareTim != null">
+                share_tim,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="questionnaireId != null">
+                #{questionnaireId,jdbcType=VARCHAR},
+            </if>
+            <if test="shareLink != null">
+                #{shareLink,jdbcType=VARCHAR},
+            </if>
+            <if test="shareBy != null">
+                #{shareBy,jdbcType=VARCHAR},
+            </if>
+            <if test="shareTim != null">
+                #{shareTim,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aim.questionnaire.entity.QuestionnaireShare">
+        update questionnaire_share
+        <set>
+            <if test="shareLink != null">
+                share_link = #{shareLink,jdbcType=VARCHAR},
+            </if>
+            <if test="shareBy != null">
+                share_by = #{shareBy,jdbcType=VARCHAR},
+            </if>
+            <if test="shareTim != null">
+                share_tim = #{shareTim,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aim.questionnaire.entity.QuestionnaireShare">
+        update questionnaire_share
+        set share_link = #{shareLink,jdbcType=VARCHAR},
+        share_by = #{shareBy,jdbcType=VARCHAR},
+        share_tim = #{shareTim,jdbcType=TIMESTAMP}
+        where questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="queryQuesionnaires" resultMap="BaseResultMap">
+        select a.* from questionnaire_share a
+        left join user_info b on a.user_id = b.id
+        where a.questionnaire_id = #{questionnaireId,jdbcType=VARCHAR}
+        and b.username = #{userName,jdbcType=VARCHAR}
+    </select>
+</mapper>

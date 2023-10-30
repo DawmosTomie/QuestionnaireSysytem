@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aim.questionnaire.dao.QuestionOptionsMapper">
+    <resultMap id="BaseResultMap" type="com.aim.questionnaire.entity.QuestionOptions">
+        <!--@mbg.generated-->
+        <!--@Table question_options-->
+        <id column="option_id" jdbcType="VARCHAR" property="optionId"/>
+        <result column="question_id" jdbcType="VARCHAR" property="questionId"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        option_id, question_id, title
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from question_options
+        where option_id = #{optionId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from question_options
+        where option_id = #{optionId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.aim.questionnaire.entity.QuestionOptions">
+        <!--@mbg.generated-->
+        insert into question_options (option_id, question_id, title
+        )
+        values (#{optionId,jdbcType=VARCHAR}, #{questionId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aim.questionnaire.entity.QuestionOptions">
+        <!--@mbg.generated-->
+        insert into question_options
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="optionId != null">
+                option_id,
+            </if>
+            <if test="questionId != null">
+                question_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="optionId != null">
+                #{optionId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null">
+                #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aim.questionnaire.entity.QuestionOptions">
+        <!--@mbg.generated-->
+        update question_options
+        <set>
+            <if test="questionId != null">
+                question_id = #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where option_id = #{optionId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aim.questionnaire.entity.QuestionOptions">
+        <!--@mbg.generated-->
+        update question_options
+        set question_id = #{questionId,jdbcType=VARCHAR},
+        title = #{title,jdbcType=VARCHAR}
+        where option_id = #{optionId,jdbcType=VARCHAR}
+    </update>
+
+    <select id="queryQuestionOptions" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from question_options where question_id = #{questionId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteQuestionOptions">
+        delete from question_options where question_id = #{questionId,jdbcType=VARCHAR}
+    </delete>
+</mapper>
