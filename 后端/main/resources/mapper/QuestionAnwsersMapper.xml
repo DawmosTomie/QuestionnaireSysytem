@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aim.questionnaire.dao.QuestionAnwsersMapper">
+    <resultMap id="BaseResultMap" type="com.aim.questionnaire.entity.QuestionAnwsers">
+        <!--@mbg.generated-->
+        <!--@Table question_anwsers-->
+        <id column="anwser_id" jdbcType="VARCHAR" property="anwserId"/>
+        <result column="commit_id" jdbcType="VARCHAR" property="commitId"/>
+        <result column="question_id" jdbcType="VARCHAR" property="questionId"/>
+        <result column="anwser" jdbcType="LONGVARCHAR" property="anwser"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        anwser_id, commit_id, question_id, anwser
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select *
+        from question_anwsers
+        where anwser_id = #{anwserId,jdbcType=VARCHAR}
+    </select>
+    <select id="queryAnwsersByCommit" resultType="com.aim.questionnaire.entity.QuestionAnwsers">
+        select
+        <include refid="Base_Column_List"/>
+        from question_anwsers
+        where question_id = #{questionId,jdbcType=VARCHAR} and commit_id = #{commitId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryAnwsersOnlyByCommit" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select *
+        from question_anwsers
+        where commit_id = #{commitId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from question_anwsers
+        where anwser_id = #{anwserId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.aim.questionnaire.entity.QuestionAnwsers">
+        <!--@mbg.generated-->
+        insert into question_anwsers (anwser_id, commit_id, question_id,
+        anwser)
+        values (#{anwserId,jdbcType=VARCHAR}, #{commitId,jdbcType=VARCHAR}, #{questionId,jdbcType=VARCHAR},
+        #{anwser,jdbcType=LONGVARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.aim.questionnaire.entity.QuestionAnwsers">
+        <!--@mbg.generated-->
+        insert into question_anwsers
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="anwserId != null">
+                anwser_id,
+            </if>
+            <if test="commitId != null">
+                commit_id,
+            </if>
+            <if test="questionId != null">
+                question_id,
+            </if>
+            <if test="anwser != null">
+                anwser,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="anwserId != null">
+                #{anwserId,jdbcType=VARCHAR},
+            </if>
+            <if test="commitId != null">
+                #{commitId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null">
+                #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="anwser != null">
+                #{anwser,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aim.questionnaire.entity.QuestionAnwsers">
+        <!--@mbg.generated-->
+        update question_anwsers
+        <set>
+            <if test="commitId != null">
+                commit_id = #{commitId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionId != null">
+                question_id = #{questionId,jdbcType=VARCHAR},
+            </if>
+            <if test="anwser != null">
+                anwser = #{anwser,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where anwser_id = #{anwserId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aim.questionnaire.entity.QuestionAnwsers">
+        <!--@mbg.generated-->
+        update question_anwsers
+        set commit_id = #{commitId,jdbcType=VARCHAR},
+        question_id = #{questionId,jdbcType=VARCHAR},
+        anwser = #{anwser,jdbcType=LONGVARCHAR}
+        where anwser_id = #{anwserId,jdbcType=VARCHAR}
+    </update>
+</mapper>

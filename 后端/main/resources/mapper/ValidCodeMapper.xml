@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aim.questionnaire.dao.ValidCodeMapper">
+    <select id="getValidCode" resultType="com.aim.questionnaire.entity.ValidCode">
+        select * from valid_code
+        where phone_number = #{telephone}
+        <if test="validCode != null and validCode != '' ">
+            and valid_code = #{validCode}
+        </if>
+        and dead_line > now() order by id desc limit 1
+    </select>
+
+    <select id="getCreateValidCode" resultType="com.aim.questionnaire.entity.ValidCode">
+        select * from valid_code
+        where phone_number = #{telephone}
+        and create_time > now() order by create_time desc limit 1
+    </select>
+</mapper>

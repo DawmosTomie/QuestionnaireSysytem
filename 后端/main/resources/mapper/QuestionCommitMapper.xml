@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aim.questionnaire.dao.QuestionCommitMapper">
+    <resultMap id="BaseResultMap" type="com.aim.questionnaire.entity.QuestionCommit">
+        <!--@mbg.generated-->
+        <!--@Table question_commit-->
+        <id column="commit_id" jdbcType="VARCHAR" property="commitId"/>
+        <result column="commit_user_id" jdbcType="VARCHAR" property="commitUserId"/>
+        <result column="questionnaire_id" jdbcType="VARCHAR" property="questionnaireId"/>
+        <result column="commmit_time" jdbcType="TIMESTAMP" property="commmitTime"/>
+        <result column="anwser_time" jdbcType="INTEGER" property="anwserTime"/>
+        <result column="commit_ip" jdbcType="VARCHAR" property="commitIp"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        commit_id, commit_user_id, questionnaire_id, commmit_time, anwser_time, commit_ip
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from question_commit
+        where commit_id = #{commitId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="queryCommits" resultType="com.aim.questionnaire.entity.QuestionCommit">
+        select
+        <include refid="Base_Column_List">
+        </include>
+        from question_commit
+        where  questionnaire_id  = #{queryParam.questionnaireId,jdbcType=VARCHAR}
+    </select>
+    <select id="queryAllCommits" resultType="com.aim.questionnaire.entity.QuestionCommit">
+        select
+        <include refid="Base_Column_List">
+        </include>
+        from question_commit
+        where  questionnaire_id  = #{queryParam.questionnaireId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        <!--@mbg.generated-->
+        delete from question_commit
+        where commit_id = #{commitId,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.aim.questionnaire.entity.QuestionCommit">
+        <!--@mbg.generated-->
+        insert into question_commit (commit_id, commit_user_id, questionnaire_id,
+        commmit_time, anwser_time, commit_ip
+        )
+        values (#{commitId,jdbcType=VARCHAR}, #{commitUserId,jdbcType=VARCHAR}, #{questionnaireId,jdbcType=VARCHAR},
+        #{commmitTime,jdbcType=TIMESTAMP}, #{anwserTime,jdbcType=INTEGER}, #{commitIp,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.aim.questionnaire.entity.QuestionCommit">
+        <!--@mbg.generated-->
+        insert into question_commit
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commitId != null">
+                commit_id,
+            </if>
+            <if test="commitUserId != null">
+                commit_user_id,
+            </if>
+            <if test="questionnaireId != null">
+                questionnaire_id,
+            </if>
+            <if test="commmitTime != null">
+                commmit_time,
+            </if>
+            <if test="anwserTime != null">
+                anwser_time,
+            </if>
+            <if test="commitIp != null">
+                commit_ip,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commitId != null">
+                #{commitId,jdbcType=VARCHAR},
+            </if>
+            <if test="commitUserId != null">
+                #{commitUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireId != null">
+                #{questionnaireId,jdbcType=VARCHAR},
+            </if>
+            <if test="commmitTime != null">
+                #{commmitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="anwserTime != null">
+                #{anwserTime,jdbcType=INTEGER},
+            </if>
+            <if test="commitIp != null">
+                #{commitIp,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.aim.questionnaire.entity.QuestionCommit">
+        <!--@mbg.generated-->
+        update question_commit
+        <set>
+            <if test="commitUserId != null">
+                commit_user_id = #{commitUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireId != null">
+                questionnaire_id = #{questionnaireId,jdbcType=VARCHAR},
+            </if>
+            <if test="commmitTime != null">
+                commmit_time = #{commmitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="anwserTime != null">
+                anwser_time = #{anwserTime,jdbcType=INTEGER},
+            </if>
+            <if test="commitIp != null">
+                commit_ip = #{commitIp,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where commit_id = #{commitId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.aim.questionnaire.entity.QuestionCommit">
+        <!--@mbg.generated-->
+        update question_commit
+        set commit_user_id = #{commitUserId,jdbcType=VARCHAR},
+        questionnaire_id = #{questionnaireId,jdbcType=VARCHAR},
+        commmit_time = #{commmitTime,jdbcType=TIMESTAMP},
+        anwser_time = #{anwserTime,jdbcType=INTEGER},
+        commit_ip = #{commitIp,jdbcType=VARCHAR}
+        where commit_id = #{commitId,jdbcType=VARCHAR}
+    </update>
+</mapper>
